@@ -22,14 +22,7 @@ class Node:
 
     @data.setter
     def data(self, value):
-        """Set the data with validation.
-
-        Args:
-            value (int): The data value for the node.
-
-        Raises:
-            TypeError: If value is not an integer.
-        """
+        """Set the data with validation."""
         if not isinstance(value, int):
             raise TypeError("data must be an integer")
         self.__data = value
@@ -37,18 +30,11 @@ class Node:
     @property
     def next_node(self):
         """Retrieve the next node."""
-        return self.__next_node
+        return (self.__next_node)
 
     @next_node.setter
     def next_node(self, value):
-        """Set the next node with validation.
-
-        Args:
-            value (Node): The next node in the list.
-
-        Raises:
-            TypeError: If value is not None or a Node instance.
-        """
+        """Set the next node with validation."""
         if value is not None and not isinstance(value, Node):
             raise TypeError("next_node must be a Node object")
         self.__next_node = value
