@@ -1,0 +1,65 @@
+# Import the BaseGeometry class
+>>> BaseGeometry = __import__("7-base_geometry").BaseGeometry
+
+# Test if module documentation exists
+>>> module_documentation = __import__("7-base_geometry").__doc__
+>>> print(len(module_documentation) > 0)
+True
+
+# Test if class documentation exists
+>>> class_documentation = BaseGeometry.__doc__
+>>> print(len(class_documentation) > 0)
+True
+
+# Test if the area method documentation exists
+>>> area_method_documentation = BaseGeometry.area.__doc__
+>>> print(len(area_method_documentation) > 0)
+True
+
+# Test if the integer_validator method documentation exists
+>>> validator_method_documentation = BaseGeometry.integer_validator.__doc__
+>>> print(len(validator_method_documentation) > 0)
+True
+
+# Test case: Calling area() method (should raise Exception)
+>>> bg = BaseGeometry()
+>>> try:
+...     bg.area()
+... except Exception as e:
+...     print(f"[{e.__class__.__name__}] {e}")
+[Exception] area() is not implemented
+
+# Test case: Validating a correct integer value (no exception should be raised)
+>>> bg.integer_validator("my_int", 12)
+# No output expected
+
+>>> bg.integer_validator("width", 89)
+# No output expected
+
+# Test case: Invalid type (value is a string)
+>>> try:
+...     bg.integer_validator("name", "John")
+... except Exception as e:
+...     print(f"[{e.__class__.__name__}] {e}")
+[TypeError] name must be an integer
+
+# Test case: Value is zero (should raise ValueError)
+>>> try:
+...     bg.integer_validator("age", 0)
+... except Exception as e:
+...     print(f"[{e.__class__.__name__}] {e}")
+[ValueError] age must be greater than 0
+
+# Test case: Negative value (should raise ValueError)
+>>> try:
+...     bg.integer_validator("distance", -4)
+... except Exception as e:
+...     print(f"[{e.__class__.__name__}] {e}")
+[ValueError] distance must be greater than 0
+
+# Test case: Value is a float (should raise TypeError)
+>>> try:
+...     bg.integer_validator("length", 5.5)
+... except Exception as e:
+...     print(f"[{e.__class__.__name__}] {e}")
+[TypeError] length must be an integer
