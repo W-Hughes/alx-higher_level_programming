@@ -102,3 +102,13 @@ class Rectangle(Base):
         """Returns a string representation of the Rectangle instance."""
         return (f"[Rectangle] ({self.id}) {self.x}/{self.y} - "
                 f"{self.width}/{self.height}")
+
+    def to_dictionary(self):
+        """Return the dictionary representation fo a triangle."""
+        return {
+                'id': self.id,
+                'width': self.width,
+                'height': self.height,
+                'x': self.x,
+                'y': self.y
+            }
