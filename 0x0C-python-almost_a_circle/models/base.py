@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """A class that manages the ID attriute across classes."""
+import json
 
 
 class Base:
@@ -18,3 +19,16 @@ class Base:
         else:
             Base.__nb_objects += 1
             self.id = Base.__nb_objects
+
+    @staticmethod
+    def to_json_string(list_dictionaries):
+        """Returns the JSON string representation of list_dictionaries.
+        Args:
+            list_dictionaries (list): A list of dictionaries.
+        Returns:
+            str: JSON string representation of list_dictionaries, or "[]"
+            if list_dictionaries is None or empty.
+        """
+        if list_dictionaries is None or not list_dictionaries:
+            return "[]"
+        return json.dumps(list_dictionaries)
