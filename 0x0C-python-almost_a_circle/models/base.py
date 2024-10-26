@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """A class that manages the ID attriute across classes."""
 import json
+import os
 
 
 class Base:
@@ -78,3 +79,18 @@ class Base:
 
         dummy.update(**dictionary)
         return dummy
+
+    @classmethod
+    def load_from_file(cls):
+        """Loads a list of instances from a file.
+        Returns:
+            List: A list of instances of cls, or an empty list
+            if the file does not exit.
+        """
+        filename = f"{cls.__name__}.json"
+        if not os.path.exists(filename):
+            return []
+        with open(filename, "r") as file:
+            json_string = file.read()
+            list_dicts = cls.from_json_string(json_string)
+            return [cls.create(**d) for d in list_dicts]
