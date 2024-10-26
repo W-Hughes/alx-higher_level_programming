@@ -2,6 +2,7 @@
 """A class that manages the ID attriute across classes."""
 import json
 import os
+import csv
 
 
 class Base:
@@ -94,3 +95,47 @@ class Base:
             json_string = file.read()
             list_dicts = cls.from_json_string(json_string)
             return [cls.create(**d) for d in list_dicts]
+
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        """Saves a list of objects to a CSV file."""
+        filename = f"{cls.__name__}.csv"
+        with open(filename, mode='w', newline='') as file:
+            writer = csv.writer(file)
+            if list_objs is None or len(list_objs) == 0:
+                return
+            for obj in list_objs:
+                if cls.__name__ == "Rectangle":
+                    writer.writerow([obj.id, obj
+                                    .width, obj.height, obj.x, obj.y]
+                                    )
+                elif cls.__name__ == "Square":
+                    writer.writerow([obj.id, obj.size, obj.x, obj.y])
+
+    @classmethod
+    def load_from_file_csv(cls):
+        """Loads a list of instances from a CSV file."""
+        filename = f"{cls.__name__}.csv"
+        if not os.path.exists(filename):
+            return []
+        with open(filename, mode='r') as file:
+            reader = csv.reader(file)
+            list_instances = []
+            for row in reader:
+                if cls.__name__ == "Rectangle":
+                    rect = cls(
+                        int(row[1]),
+                        int(row[2]),
+                        int(row[3]),
+                        int(row[4]),
+                        int(row[0])
+                    )
+                elif cls.__name__ == "Square":
+                    rect = cls(
+                        int(row[1]),
+                        int(row[2]),
+                        int(row[3]),
+                        int(row[0])
+                    )
+                list_instances.append(rect)
+            return list_instances
