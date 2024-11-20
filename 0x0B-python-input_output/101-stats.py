@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""Describes a line-reading program."""
+
+
 import sys
 
 
